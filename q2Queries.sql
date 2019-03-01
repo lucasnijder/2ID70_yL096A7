@@ -14,7 +14,11 @@ Q5 Change every 5 to %1%
 WITH nonnull AS (select courseofferid,grade from courseregistrations where grade is not null) select courseid, SUM(CASE WHEN nonnull.grade >= 5 THEN 1 ELSE 0 END)::DECIMAL * 100 / count(nonnull.grade) AS percentagePassing FROM nonnull, courseoffers WHERE nonnull.courseofferid = courseoffers.courseofferid GROUP BY courseid ORDER BY courseid;
 
 Q6
-WITH max_grade AS (SELECT courseofferid, max(grade) as high FROM courseregistrations GROUP BY coufferid), correct_date AS (SELECT courseofferid FROM courseoffers WHERE year = 2018 AND quartile =1) SELECT studentID, count(courseofferid) FROM max_grade, correct_date, 
+WITH max_grade_pc_1_2018 AS 
+
+(SELECT CR.courseofferid, max(CR.grade) AS max_grade FROM courseregistrations CR, courseoffers CO WHERE CO.year = 2018 AND CO.quartile =1 AND CR.courseofferid = CO.courseofferid GROUP BY CR.courseofferid)
+
+SELECT studentID, count(courseofferid) FROM max_grade, correct_date, courseregistrations, StudentRegistrationsToDegrees WHERE max_grade.courseofferid = correct_date.courseofferid AND max_grade 
 
 Q7
 
