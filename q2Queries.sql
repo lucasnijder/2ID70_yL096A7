@@ -6,6 +6,7 @@ SELECT DISTINCT StudentId FROM (SELECT StudentRegistrationsToDegrees.StudentRegi
 
 Q3
 SELECT DegreeId, count(case when gender='F'then 1.0 end)/cast (count(gender)AS FLOAT)*100.0 AS Percentage FROM (SELECT StudentregistrationId, Degrees.DegreeId, gender FROM Degrees, Students, StudentRegistrationsToDegrees, courses WHERE Students.StudentId = StudentRegistrationsToDegrees.StudentId AND Degrees.DegreeId = StudentRegistrationsToDegrees.DegreeId AND Courses.DegreeId = Degrees.DegreeId GROUP BY StudentRegistrationId, Degrees.DegreeId, Students.StudentId HAVING sum(ECTS) < TotalESCTS) AS Total GROUP BY DegreeId ORDER BY DegreeId;
+
 Q4 Change '%thou%' to %1%
 WITH StudentsinDegree AS (SELECT distinct students.studentid, students.gender from students, studentregistrationstodegrees, degrees where students.studentid = studentRegistrationsToDegrees.studentid AND studentregistrationstodegrees.degreeid = degrees.degreeid AND Degrees.Dept = '%thou%') SELECT 100.0 * (SUM(CASE WHEN Gender='F' THEN 1 ELSE 0 END)::DECIMAL / COUNT(studentsindegree.studentid)) as percentage FROM studentsindegree;
 
@@ -13,7 +14,7 @@ Q5 Change every 5 to %1%
 WITH nonnull AS (select courseofferid,grade from courseregistrations where grade is not null) select courseid, SUM(CASE WHEN nonnull.grade >= 5 THEN 1 ELSE 0 END)::DECIMAL * 100 / count(nonnull.grade) AS percentagePassing FROM nonnull, courseoffers WHERE nonnull.courseofferid = courseoffers.courseofferid GROUP BY courseid ORDER BY courseid;
 
 Q6
-WITH excellent AS (SELECT  FROM 
+WITH max_grade AS (SELECT courseofferid, max(grade) as high FROM courseregistrations GROUP BY coufferid), correct_date AS (SELECT courseofferid FROM courseoffers WHERE year = 2018 AND quartile =1) SELECT studentID, count(courseofferid) FROM max_grade, correct_date, 
 
 Q7
 
