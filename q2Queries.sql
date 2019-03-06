@@ -17,6 +17,7 @@ Q6 change 3 to %1%
 WITH max_grade_pc_1_2018 AS (SELECT CR.courseofferid, max(CR.grade) AS max_grade FROM courseregistrations CR, courseoffers CO WHERE CO.year = 2018 AND CO.quartile =1 AND CR.courseofferid = CO.courseofferid GROUP BY CR.courseofferid), counts_excellent AS (SELECT studentID, count(courseregistrations.courseofferid) as counts FROM max_grade_pc_1_2018, courseregistrations, StudentRegistrationsToDegrees WHERE max_grade_pc_1_2018.courseofferid = courseregistrations.courseofferid AND max_grade_pc_1_2018.max_grade = courseregistrations.grade AND courseregistrations.studentregistrationid = studentregistrationstodegrees.studentregistrationid GROUP BY studentid) SELECT studentID, counts FROM counts_excellent WHERE counts >= 3;
 
 Q7
+SELECT degreeid, birthyearstudent, gender, avg(avgGrade) as avgGrade FROM students, GPA, active_students_per_degree WHERE students.studentid = active_students_per_degree.StudentId and GPA.studentid = students.StudentId GROUP BY cube(degreeid, birthyearstudent, gender);
 
 Q8
-
+SELECT coursename, year, quartile FROM courses, courseoffers, student_assistant_count, student_count WHERE courseoffers.courseid = courses.courseid and student_assistant_count.courseofferid = courseoffers.CourseOfferId and student_count.courseofferid = courseoffers.CourseOfferId and student_assistant_count.value*50 < student_count.value;
