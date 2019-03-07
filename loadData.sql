@@ -15,5 +15,5 @@ COPY CourseRegistrations(CourseOfferId, StudentRegistrationId, Grade) FROM '/mnt
 CREATE UNLOGGED TABLE CourseOfferRegistrations AS SELECT CourseRegistrations.CourseOfferId, CourseRegistrations.StudentRegistrationId, CourseRegistrations.Grade, CourseOffers.CourseId, CourseOffers.Year, Courseoffers.Quartile, Studentid FROM CourseRegistrations, CourseOffers, StudentRegistrationsToDegrees WHERE CourseRegistrations.CourseOfferId = CourseOffers.CourseOfferId AND StudentRegistrationsToDegrees.StudentRegistrationId = CourseRegistrations.StudentRegistrationId;
 DROP TABLE CourseOffers;
 DROP TABLE CourseRegistrations;
-ALTER TABLE courseofferregsitrations add primary key (courseofferid, studentregistrationid)
+ALTER TABLE courseofferregistrations add primary key (courseofferid, studentregistrationid);
 ANALYZE VERBOSE;
