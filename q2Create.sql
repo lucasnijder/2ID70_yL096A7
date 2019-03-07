@@ -1,2 +1,6 @@
+CREATE MATERIALIZED VIEW non_null_grade as (
+	SELECT *
+	FROM CourseRegistrations
+	WHERE grade > 0
+);
 
-Hier moeten de auxilliary structures gemaakt worden. E.g. indexes, extra tables, etc.
