@@ -13,3 +13,8 @@ SELECT ects_per_degree.StudentRegistrationId
 FROM ects_per_degree, Degrees
 WHERE ects_per_degree.DegreeId = Degrees.DegreeId
 AND ects_per_degree.currentects >= Degrees.TotalECTS;
+
+CREATE MATERIALIZED VIEW GPA(StudentId, StudentRegistrationId, SumECTS, GPA) AS 
+SELECT StudentId, StudentRegistrationId, sum(ECTS), (sum(ECTS * Grade))/(Sum(ECTS)) 
+FROM CourseOfferRegistrations, Courses, Degrees WHERE CourseOfferRegistrations.CourseId = Courses.courseId 
+AND Degrees.DegreeId = Courses.DegreeId AND Grade >=5 GROUP BY StudentId, StudentRegistrationId;
