@@ -13,7 +13,7 @@ ALTER TABLE CourseOffers add primary key (CourseOfferId);
 COPY TeacherAssignmentsToCourses(CourseOfferId, TeacherId) FROM '/mnt/ramdisk/tables/TeacherAssignmentsToCourses.table' DELIMITER ',' CSV HEADER;
 COPY StudentAssistants(CourseOfferId, StudentRegistrationId) FROM '/mnt/ramdisk/tables/StudentAssistants.table' DELIMITER ',' CSV HEADER;
 COPY CourseRegistrations(CourseOfferId, StudentRegistrationId, Grade) FROM '/mnt/ramdisk/tables/CourseRegistrations.table' DELIMITER ',' CSV HEADER NULL 'null';
-CREATE UNLOGGED TABLE CourseOfferRegistrations AS SELECT CourseRegistrations.CourseOfferId, CourseRegistrations.StudentRegistrationId, CourseRegistrations.Grade, CourseOffers.CourseId, CourseOffers.Year, Courseoffers.Quartile FROM CourseRegistrations, CourseOffers WHERE CourseRegistrations.CourseOfferId = CourseOffers.CourseOfferId;
+CREATE UNLOGGED TABLE CourseOfferRegistrations AS SELECT CourseRegistrations.CourseOfferId, CourseRegistrations.StudentRegistrationId, CourseRegistrations.Grade, CourseOffers.CourseId, CourseOffers.Year, Courseoffers.Quartile, Studentid FROM CourseRegistrations, CourseOffers, StudentRegistrationsToDegrees WHERE CourseRegistrations.CourseOfferId = CourseOffers.CourseOfferId AND StudentRegistrationsToDegrees.StudentRegistrationId = CourseRegistrations.StudentRegistrationId;
 DROP TABLE CourseOffers;
 DROP TABLE CourseRegistrations;
 ANALYZE VERBOSE;
