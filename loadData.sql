@@ -1,4 +1,4 @@
-COPY Degrees(degreeid, dept, degreedescription, totalects) FROM '/mnt/ramdisk/tables/Degrees.table' DELIMITER ',' CSV HEADER;
+COPY Degrees(degreeid, dept, degreedescription, TotalECTS) FROM '/mnt/ramdisk/tables/Degrees.table' DELIMITER ',' CSV HEADER;
 ALTER TABLE degrees add primary key (DegreeId);
 COPY Students(StudentId, StudentName, Address,BirthyearStudent, Gender) FROM '/mnt/ramdisk/tables/Students.table' DELIMITER ',' CSV HEADER;
 ALTER TABLE Students add primary key (StudentId);
