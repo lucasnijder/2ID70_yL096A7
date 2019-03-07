@@ -1,3 +1,4 @@
+create index student_idx on courseOfferRegistrations(studentId);
 -- create a view for calculating the achieved ects per student per degree
 CREATE VIEW ects_per_degree AS
 SELECT StudentRegistrationsToDegrees.StudentRegistrationId, StudentRegistrationsToDegrees.DegreeId, SUM(Courses.ECTS) as currentects
