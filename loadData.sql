@@ -9,11 +9,11 @@ ALTER TABLE Teachers add primary key (TeacherId);
 COPY Courses(CourseId, CourseName, CourseDescription, DegreeId, ECTS) FROM '/mnt/ramdisk/tables/Courses.table' DELIMITER ',' CSV HEADER;
 ALTER TABLE Courses add primary key (CourseId);
 COPY CourseOffers(CourseOfferId, CourseId, Year, Quartile) FROM '/mnt/ramdisk/tables/CourseOffers.table' DELIMITER ',' CSV HEADER;
-ALTER TABLE CourseOffers add primary key (CourseOfferId);
 COPY TeacherAssignmentsToCourses(CourseOfferId, TeacherId) FROM '/mnt/ramdisk/tables/TeacherAssignmentsToCourses.table' DELIMITER ',' CSV HEADER;
 COPY StudentAssistants(CourseOfferId, StudentRegistrationId) FROM '/mnt/ramdisk/tables/StudentAssistants.table' DELIMITER ',' CSV HEADER;
 COPY CourseRegistrations(CourseOfferId, StudentRegistrationId, Grade) FROM '/mnt/ramdisk/tables/CourseRegistrations.table' DELIMITER ',' CSV HEADER NULL 'null';
 CREATE UNLOGGED TABLE CourseOfferRegistrations AS SELECT CourseRegistrations.CourseOfferId, CourseRegistrations.StudentRegistrationId, CourseRegistrations.Grade, CourseOffers.CourseId, CourseOffers.Year, Courseoffers.Quartile, Studentid FROM CourseRegistrations, CourseOffers, StudentRegistrationsToDegrees WHERE CourseRegistrations.CourseOfferId = CourseOffers.CourseOfferId AND StudentRegistrationsToDegrees.StudentRegistrationId = CourseRegistrations.StudentRegistrationId;
 DROP TABLE CourseOffers;
 DROP TABLE CourseRegistrations;
+ALTER TABLE courseofferregsitrations add primary key (courseofferid, studentregistrationid)
 ANALYZE VERBOSE;
