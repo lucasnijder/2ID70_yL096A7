@@ -14,7 +14,7 @@ drop courseoffers_temp
 COPY TeacherAssignmentsToCourses(CourseOfferId, TeacherId) FROM '/mnt/ramdisk/tables/TeacherAssignmentsToCourses.table' DELIMITER ',' CSV HEADER;
 COPY StudentAssistants(CourseOfferId, StudentRegistrationId) FROM '/mnt/ramdisk/tables/StudentAssistants.table' DELIMITER ',' CSV HEADER;
 COPY CourseRegistrations(CourseOfferId, StudentRegistrationId, Grade) FROM '/mnt/ramdisk/tables/CourseRegistrations.table' DELIMITER ',' CSV HEADER NULL 'null';
-CREATE UNLOGGED TABLE CourseOfferRegistrations AS SELECT CourseRegistrations.CourseOfferId, CourseRegistrations.StudentRegistrationId, CourseRegistrations.Grade, CourseOffers.CourseId, CourseOffers.Year, Courseoffers.Quartile, Studentid FROM CourseRegistrations, CourseOffers, StudentRegistrationsToDegrees WHERE CourseRegistrations.CourseOfferId = CourseOffers.CourseOfferId AND StudentRegistrationsToDegrees.StudentRegistrationId = CourseRegistrations.StudentRegistrationId;
+CREATE UNLOGGED TABLE CourseOfferRegistrations AS SELECT CourseRegistrations.CourseOfferId, CourseRegistrations.StudentRegistrationId, CourseRegistrations.Grade, CourseOffers.CourseId, CourseOffers.coursename, CourseOffers.Year, Courseoffers.Quartile, Studentid FROM CourseRegistrations, CourseOffers, StudentRegistrationsToDegrees WHERE CourseRegistrations.CourseOfferId = CourseOffers.CourseOfferId AND StudentRegistrationsToDegrees.StudentRegistrationId = CourseRegistrations.StudentRegistrationId;
 DROP TABLE CourseRegistrations;
 ALTER TABLE courseofferregistrations add primary key (courseofferid, studentregistrationid);
 ANALYZE VERBOSE;
