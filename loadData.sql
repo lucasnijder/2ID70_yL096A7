@@ -10,7 +10,7 @@ COPY Courses(CourseId, CourseName, CourseDescription, DegreeId, ECTS) FROM '/mnt
 ALTER TABLE Courses add primary key (CourseId);
 COPY CourseOffers_tmp(CourseOfferId, CourseId, Year, Quartile) FROM '/mnt/ramdisk/tables/CourseOffers.table' DELIMITER ',' CSV HEADER;
 SELECT CO.*, courses.CourseName INTO CourseOffers FROM CourseOffers_tmp CO, Courses WHERE Courses.CourseId = CO.CourseID;
-drop table courseoffers_tmp
+drop table courseoffers_tmp;
 COPY TeacherAssignmentsToCourses(CourseOfferId, TeacherId) FROM '/mnt/ramdisk/tables/TeacherAssignmentsToCourses.table' DELIMITER ',' CSV HEADER;
 COPY StudentAssistants(CourseOfferId, StudentRegistrationId) FROM '/mnt/ramdisk/tables/StudentAssistants.table' DELIMITER ',' CSV HEADER;
 COPY CourseRegistrations(CourseOfferId, StudentRegistrationId, Grade) FROM '/mnt/ramdisk/tables/CourseRegistrations.table' DELIMITER ',' CSV HEADER NULL 'null';
