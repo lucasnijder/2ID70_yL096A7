@@ -10,4 +10,4 @@ SELECT ects_per_degree.StudentRegistrationId, gpa
 FROM ects_per_degree, Degrees
 WHERE ects_per_degree.DegreeId = Degrees.DegreeId
 AND ects_per_degree.currentects >= Degrees.TotalECTS;
---create index offer_idx on courseofferregistrations(CourseOfferId);
+create index offer_idx on courseofferregistrations(CourseOfferId);
