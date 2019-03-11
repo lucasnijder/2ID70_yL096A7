@@ -6,7 +6,7 @@ WHERE CourseOfferRegistrations.StudentRegistrationId = StudentRegistrationsToDeg
 AND CourseOfferRegistrations.Grade >= 5
 GROUP BY StudentRegistrationsToDegrees.StudentRegistrationId, StudentRegistrationsToDegrees.DegreeId;
 CREATE MATERIALIZED VIEW CompletedDegrees AS
-SELECT ects_per_degree.StudentRegistrationId, gpa
+SELECT ects_per_degree.StudentRegistrationId, ects_per_degree.studentid, gpa
 FROM ects_per_degree, Degrees
 WHERE ects_per_degree.DegreeId = Degrees.DegreeId
 AND ects_per_degree.currentects >= Degrees.TotalECTS;
