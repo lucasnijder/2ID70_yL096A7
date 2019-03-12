@@ -1,5 +1,5 @@
 create index student_idx on courseOfferRegistrations(studentId);
-CREATE VIEW ects_per_degree AS
+CREATE MATERIALIZED VIEW ects_per_degree AS
 SELECT StudentRegistrationsToDegrees.StudentRegistrationId, studentregistrationstodegrees.studentid, StudentRegistrationsToDegrees.DegreeId, SUM(ECTS) as currentects, CAST(SUM(CourseOfferRegistrations.Grade * ECTS) AS FLOAT) / CAST(SUM(ECTS) AS FLOAT) as GPA
 FROM StudentRegistrationsToDegrees, CourseOfferRegistrations
 WHERE CourseOfferRegistrations.StudentRegistrationId = StudentRegistrationsToDegrees.StudentRegistrationId
